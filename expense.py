@@ -33,7 +33,7 @@ def new_expense(*args):
     amount = infos.get('amount')
     label = infos.get('label')
     spender = infos.get('spender')
-    spendee_list = str(infos.get('spendees'))
+    spendee_list = infos.get('spendees')
     # print("Spendees : ", spendee_list, file=sys.stderr)
     spendees = list(csv.reader([spendee_list]))[0]
     # print("Spendees : ", spendees, file=sys.stderr)
@@ -64,9 +64,11 @@ def new_expense(*args):
         return False
     
     ## Check if all spendees are users
-    for spender in spendees:
-        if (spender not in users):
-            print("All the spendees have to be users")
+    for spender_ in spendees:
+        if (spender_ not in users):
+            print("Users : ", users, file=sys.stderr)
+            print("Spendees : ", spendees, file=sys.stderr)
+            print("All the spendees have to be users", file=sys.stderr)
             return False
     
     # Creates the line to add to the csv file
