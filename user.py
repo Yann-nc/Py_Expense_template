@@ -9,6 +9,7 @@ user_questions = [
     }
 ]
 
+
 def add_user(*args):
     infos = prompt(user_questions)
     

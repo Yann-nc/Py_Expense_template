@@ -1,5 +1,6 @@
 from PyInquirer import prompt
 import csv
+import sys
 
 expense_questions = [
     {
@@ -20,8 +21,6 @@ expense_questions = [
 
 ]
 
-
-
 def new_expense(*args):
     infos = prompt(expense_questions)
     
@@ -29,6 +28,23 @@ def new_expense(*args):
     amount = infos.get('amount')
     label = infos.get('label')
     spender = infos.get('spender')
+    
+    # Check if user exists
+    ## Put all the users in a set 
+    users = { '' }
+    users.clear()
+
+    file = open("users.csv", "r")
+
+    for line in file:
+        line = line[:-1]
+        users.add(line)
+
+    print("Users : ", users, file=sys.stderr)
+    
+    if (spender not in users):
+        print("You can't add an expense from an unknown user !")
+        return False
     
     # Creates the line to add to the csv file
     data = [ amount, label, spender]
@@ -38,9 +54,6 @@ def new_expense(*args):
         writer = csv.writer(file)
         writer.writerow(data)
     
-    print(spender, " payed ", amount, " for : ", label)
     print("Expense Added ! -> ", spender, " payed ", amount, " for : ", label)
     
     return True
-
-

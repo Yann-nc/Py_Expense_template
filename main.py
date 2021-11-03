@@ -13,9 +13,11 @@ def ask_option():
     option = prompt(main_option)
     if (option['main_options']) == "New Expense":
         new_expense()
+        print()
         ask_option()
     elif (option['main_options']) == "New User":
         add_user()
+        print()
         ask_option()
     elif (option['main_options']) == "Exit":
         exit()
